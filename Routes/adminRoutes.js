@@ -12,5 +12,5 @@ router
 .route('/:id')
 .get(adminController.getAdminById)
 .patch(authController.protect,authController.restrictTo('superadmin','admin'),adminController.updateAdmin)
-.delete(authController.protect,authController.restrictTo('superadmin','admin'),adminController.deleteAdmin)
+.delete(authController.protect,authController.restrictTo('superadmin'),adminController.deleteAdmin)
 module.exports=router;

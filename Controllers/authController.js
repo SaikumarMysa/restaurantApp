@@ -62,7 +62,7 @@ exports.protect= async (req,res,next) => {
     if(req.headers.authorization && req.headers.authorization.startsWith('Bearer')){
         token=req.headers.authorization.split(' ')[1];
     }
-    console.log('token for login:'+token)
+    //console.log('token for login:'+token)
     //check token is there or not
     if(!token){
         return next(new AppError('You are not loggin in, please login to get access',401))
@@ -72,7 +72,7 @@ exports.protect= async (req,res,next) => {
      
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
-    console.log('decoded: '+decoded);
+    //console.log('decoded: '+decoded);
 
     // 3. check if user still exists in our db
 

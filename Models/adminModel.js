@@ -32,6 +32,11 @@ const adminSchema=new mongoose.Schema({
         enum:['superadmin','admin','subadmin'],
         required:[true,'please specify your role'],
         default:'subadmin'
+    },
+    active:{
+        type:Boolean,
+        default:true,
+        select:false
     }
     
     
@@ -69,7 +74,12 @@ adminSchema.methods.changedPasswordAfter= function( JWTTimeStamp ){
     //False means not changed
     return false;
 }
-
+//querymiddleware
+adminSchema.pre(/^find/,function(next){
+    //this points to the current query
+    this.find({active:{$ne:false}})
+    next();
+})
 const Admin=mongoose.model('Admin',adminSchema);
 module.exports=Admin;
 
