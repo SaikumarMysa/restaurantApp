@@ -1,20 +1,26 @@
 const mongoose=require('mongoose');
-const Food=require('./foodModel');
 const categorySchema=new mongoose.Schema({
-    category_id:Number,
     category:{
         type:String,
-        required:[true,'category must have a name']
+        lowercase:true,
+        required:[true, 'category must be named!'],
+        enum:['starters','maincourse','beverages','desserts']
     },
     description:{
         type:String,
         trim:true
     },
-    items:[
-        {
-        type:mongoose.Schema.ObjectId,
-        ref:'Food'
-        }
-    ]
+    active:{
+        type:Boolean,
+        default:true,
+        select:false
+    }  
+})
+
+//querymiddleware
+categorySchema.pre(/^find/,function(next){
+    this.find({active:{$ne:false}})
+    next();
 })
 const Category=mongoose.model('Category',categorySchema);
+module.exports=Category;

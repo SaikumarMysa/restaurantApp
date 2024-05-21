@@ -56,7 +56,7 @@ exports.login=async(req,res,next)=>{
 
 //Protecting routes from random login's
 exports.protect= async (req,res,next) => {
-    console.log(req.headers)
+    //console.log(req.headers)
     //1.provide token
     let token;
     if(req.headers.authorization && req.headers.authorization.startsWith('Bearer')){
