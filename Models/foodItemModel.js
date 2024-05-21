@@ -16,8 +16,19 @@ const foodSchema=new mongoose.Schema({
     description:{
         type:String,
         trim:true
+    },
+    active:{
+        type:Boolean,
+        default:true,
+        select:false
     }
     
+})
+//querymiddleware
+foodSchema.pre(/^find/,function(next){
+    this.find({active:{$ne:false}})
+    //this.find();
+    next();
 })
 const Fooditem=mongoose.model('Fooditem',foodSchema);
 module.exports=Fooditem;
