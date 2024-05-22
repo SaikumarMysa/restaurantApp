@@ -11,7 +11,10 @@ const foodSchema=new mongoose.Schema({
         type:String,
         required:[true,'food item must have a name'],
     },
-    price:Number,
+    price:{
+        type:Number,
+        required:true
+    },
     images:String,
     description:{
         type:String,
@@ -23,6 +26,10 @@ const foodSchema=new mongoose.Schema({
         select:false
     }
     
+})
+foodSchema.pre('save',function(next){
+    //console.log('saves doc');
+    next();
 })
 //querymiddleware
 foodSchema.pre(/^find/,function(next){

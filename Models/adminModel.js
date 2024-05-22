@@ -74,6 +74,11 @@ adminSchema.methods.changedPasswordAfter= function( JWTTimeStamp ){
     //False means not changed
     return false;
 }
+//document middleware
+adminSchema.pre('save',function(next){
+    console.log('saves doc')
+    next();
+})
 //querymiddleware
 adminSchema.pre(/^find/,function(next){
     //this points to the current query

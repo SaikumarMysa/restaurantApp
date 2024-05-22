@@ -1,0 +1,403 @@
+[
+    {
+        "category": "beverages",
+        "foodItem_name": "item 1",
+        "price": 35
+    },
+    {
+        "category": "beverages",
+        "foodItem_name": "item 2",
+        "price": 35
+    },
+    {
+        "category": "beverages",
+        "foodItem_name": "item 3",
+        "price": 35
+    },
+    {
+        "category": "beverages",
+        "foodItem_name": "item 4",
+        "price": 35
+    },
+    {
+        "category": "beverages",
+        "foodItem_name": "item 5",
+        "price": 35
+    },
+    {
+        "category": "beverages",
+        "foodItem_name": "item 6",
+        "price": 35
+    },
+    {
+        "category": "beverages",
+        "foodItem_name": "item 7",
+        "price": 35
+    },
+    {
+        "category": "beverages",
+        "foodItem_name": "item 8",
+        "price": 35
+    },
+    {
+        "category": "beverages",
+        "foodItem_name": "item 9",
+        "price": 35
+    },
+    {
+        "category": "beverages",
+        "foodItem_name": "item 10",
+        "price": 35
+    },
+    {
+        "category": "beverages",
+        "foodItem_name": "item 11",
+        "price": 35
+    },
+    {
+        "category": "beverages",
+        "foodItem_name": "item 12",
+        "price": 35
+    },
+    {
+        "category": "beverages",
+        "foodItem_name": "item 13",
+        "price": 35
+    },
+    {
+        "category": "beverages",
+        "foodItem_name": "item 14",
+        "price": 35
+    },
+    {
+        "category": "beverages",
+        "foodItem_name": "item 15",
+        "price": 35
+    },
+    {
+        "category": "beverages",
+        "foodItem_name": "item 16",
+        "price": 35
+    },
+    {
+        "category": "beverages",
+        "foodItem_name": "item 17",
+        "price": 35
+    },
+    {
+        "category": "beverages",
+        "foodItem_name": "item 18",
+        "price": 35
+    },
+    {
+        "category": "beverages",
+        "foodItem_name": "item 19",
+        "price": 35
+    },
+    {
+        "category": "beverages",
+        "foodItem_name": "item 20",
+        "price": 35
+    },
+    {
+        "category": "starters",
+        "foodItem_name": "item 1",
+        "price": 25
+    },
+    {
+        "category": "starters",
+        "foodItem_name": "item 2",
+        "price": 25
+    },
+    {
+        "category": "starters",
+        "foodItem_name": "item 3",
+        "price": 25
+    },
+    {
+        "category": "starters",
+        "foodItem_name": "item 4",
+        "price": 25
+    },
+    {
+        "category": "starters",
+        "foodItem_name": "item 5",
+        "price": 25
+    },
+    {
+        "category": "starters",
+        "foodItem_name": "item 6",
+        "price": 25
+    },
+    {
+        "category": "starters",
+        "foodItem_name": "item 7",
+        "price": 25
+    },
+    {
+        "category": "starters",
+        "foodItem_name": "item 8",
+        "price": 25
+    },
+    {
+        "category": "starters",
+        "foodItem_name": "item 9",
+        "price": 25
+    },
+    {
+        "category": "starters",
+        "foodItem_name": "item 10",
+        "price": 25
+    },
+    {
+        "category": "starters",
+        "foodItem_name": "item 11",
+        "price": 25
+    },
+    {
+        "category": "starters",
+        "foodItem_name": "item 12",
+        "price": 25
+    },
+    {
+        "category": "starters",
+        "foodItem_name": "item 13",
+        "price": 25
+    },
+    {
+        "category": "starters",
+        "foodItem_name": "item 14",
+        "price": 25
+    },
+    {
+        "category": "starters",
+        "foodItem_name": "item 15",
+        "price": 25
+    },
+    {
+        "category": "starters",
+        "foodItem_name": "item 16",
+        "price": 25
+    },
+    {
+        "category": "starters",
+        "foodItem_name": "item 17",
+        "price": 25
+    },
+    {
+        "category": "starters",
+        "foodItem_name": "item 18",
+        "price": 25
+    },
+    {
+        "category": "starters",
+        "foodItem_name": "item 19",
+        "price": 25
+    },
+    {
+        "category": "starters",
+        "foodItem_name": "item 20",
+        "price": 25
+    },
+    {
+        "category": "desserts",
+        "foodItem_name": "item 1",
+        "price": 20
+    },
+    {
+        "category": "desserts",
+        "foodItem_name": "item 2",
+        "price": 20
+    },
+    {
+        "category": "desserts",
+        "foodItem_name": "item 3",
+        "price": 20
+    },
+    {
+        "category": "desserts",
+        "foodItem_name": "item 4",
+        "price": 20
+    },
+    {
+        "category": "desserts",
+        "foodItem_name": "item 5",
+        "price": 20
+    },
+    {
+        "category": "desserts",
+        "foodItem_name": "item 6",
+        "price": 20
+    },
+    {
+        "category": "desserts",
+        "foodItem_name": "item 7",
+        "price": 20
+    },
+    {
+        "category": "desserts",
+        "foodItem_name": "item 8",
+        "price": 20
+    },
+    {
+        "category": "desserts",
+        "foodItem_name": "item 9",
+        "price": 20
+    },
+    {
+        "category": "desserts",
+        "foodItem_name": "item 10",
+        "price": 20
+    },
+    {
+        "category": "desserts",
+        "foodItem_name": "item 11",
+        "price": 20
+    },
+    {
+        "category": "desserts",
+        "foodItem_name": "item 12",
+        "price": 20
+    },
+    {
+        "category": "desserts",
+        "foodItem_name": "item 13",
+        "price": 20
+    },
+    {
+        "category": "desserts",
+        "foodItem_name": "item 14",
+        "price": 20
+    },
+    {
+        "category": "desserts",
+        "foodItem_name": "item 15",
+        "price": 20
+    },
+    {
+        "category": "desserts",
+        "foodItem_name": "item 16",
+        "price": 20
+    },
+    {
+        "category": "desserts",
+        "foodItem_name": "item 17",
+        "price": 20
+    },
+    {
+        "category": "desserts",
+        "foodItem_name": "item 18",
+        "price": 20
+    },
+    {
+        "category": "desserts",
+        "foodItem_name": "item 19",
+        "price": 20
+    },
+    {
+        "category": "desserts",
+        "foodItem_name": "item 20",
+        "price": 20
+    },
+    {
+        "category": "maincourse",
+        "foodItem_name": "item 1",
+        "price": 200
+    },
+    {
+        "category": "maincourse",
+        "foodItem_name": "item 2",
+        "price": 200
+    },
+    {
+        "category": "maincourse",
+        "foodItem_name": "item 3",
+        "price": 200
+    },
+    {
+        "category": "maincourse",
+        "foodItem_name": "item 4",
+        "price": 200
+    },
+    {
+        "category": "maincourse",
+        "foodItem_name": "item 5",
+        "price": 200
+    },
+    {
+        "category": "maincourse",
+        "foodItem_name": "item 6",
+        "price": 200
+    },
+    {
+        "category": "maincourse",
+        "foodItem_name": "item 7",
+        "price": 200
+    },
+    {
+        "category": "maincourse",
+        "foodItem_name": "item 8",
+        "price": 200
+    },
+    {
+        "category": "maincourse",
+        "foodItem_name": "item 9",
+        "price": 200
+    },
+    {
+        "category": "maincourse",
+        "foodItem_name": "item 10",
+        "price": 200
+    },
+    {
+        "category": "maincourse",
+        "foodItem_name": "item 11",
+        "price": 200
+    },
+    {
+        "category": "maincourse",
+        "foodItem_name": "item 12",
+        "price": 200
+    },
+    {
+        "category": "maincourse",
+        "foodItem_name": "item 13",
+        "price": 200
+    },
+    {
+        "category": "maincourse",
+        "foodItem_name": "item 14",
+        "price": 200
+    },
+    {
+        "category": "maincourse",
+        "foodItem_name": "item 15",
+        "price": 200
+    },
+    {
+        "category": "maincourse",
+        "foodItem_name": "item 16",
+        "price": 200
+    },
+    {
+        "category": "maincourse",
+        "foodItem_name": "item 17",
+        "price": 200
+    },
+    {
+        "category": "maincourse",
+        "foodItem_name": "item 18",
+        "price": 200
+    },
+    {
+        "category": "maincourse",
+        "foodItem_name": "item 19",
+        "price": 200
+    },
+    {
+        "category": "maincourse",
+        "foodItem_name": "item 20",
+        "price": 200
+    }
+
+]

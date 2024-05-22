@@ -3,7 +3,8 @@ const Category=require('./../Models/categoryModel')
 //GET ALL CATEGORIES:
 exports.getAllCategories=async(req,res) => {
     try{
-        const categories=await Category.find();
+        const categories=await Category.find(req.query);
+        //console.log(req.query);
     res.status(200).json({
         status:'success',
         data:{

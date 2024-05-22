@@ -1,13 +1,22 @@
 const Fooditem = require('./../Models/foodItemModel');
-
+const APIFeatures=require('./../utils/apiFeatures');
 //GET ALL FOODITEMS:
 
 exports.getAllFoodItems=async(req,res)=>{
     
     try{
-        const foodItems=await Fooditem.find()
+        //const foodItems=await Fooditem.find(req.query)
+
+        //Execute query
+        const features= new APIFeatures(Fooditem.find(),req.query)
+        .filter()
+        .paginate()
+
+        const foodItems=await features.query;
+       
         res.status(200).json({
             status:'success',
+            results:foodItems.length,
             data:{
                 foodItems
             }
@@ -78,8 +87,8 @@ exports.updateFoodItem= async(req,res)=>{
 //delete Fooditem
 exports.deleteFoodItem=async(req,res)=>{
     try{
-        await Fooditem.findByIdAndUpdate(req.param.id,{active:false});
-        res.status(204).json({
+        await Fooditem.findByIdAndUpdate(req.params.id,{active:false});
+        res.status(200).json({
         status:'success',
         data:null
     })
@@ -90,3 +99,4 @@ exports.deleteFoodItem=async(req,res)=>{
         })
     }
 }
+
