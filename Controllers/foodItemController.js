@@ -8,7 +8,7 @@ exports.getAllFoodItems=async(req,res)=>{
         //const foodItems=await Fooditem.find(req.query)
 
         //Execute query
-        const features= new APIFeatures(Fooditem.find(),req.query)
+        const features= new APIFeatures(Fooditem.find(req.params.id),req.query)
         .filter()
         .paginate()
 

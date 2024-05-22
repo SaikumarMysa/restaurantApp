@@ -1,20 +1,23 @@
 const mongoose=require('mongoose');
-const Food=require('./foodModel')
 const cartSchema=new mongoose.Schema({
-    item_id:{
+      adminId:{
         type:String,
-        required:[true,'provide item_id']
-    },
-        item_name:{
-            type:String,
-            required:[true,'food item should have a name'],
-            trim:true,
-            lowercase:true
-        },
-        quantity:{
-            type:[Number],
-            required:[true,'please provide quantity']
-        },
-        price:Number       
+        required:true
+      },
+      items:[{
+        type:mongoose.Schema.ObjectId,
+        ref:'Fooditem'
+      }],
+      quantity:Number
+})
+
+//querymiddleware
+cartSchema.pre(/^find/,function(next){
+  this.populate({
+    path:'items',
+    select:'-__v'
+  });
+  next();
 })
 const Cart=mongoose.model('Cart',cartSchema);
+module.exports=Cart;
