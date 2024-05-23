@@ -1,5 +1,6 @@
 const jwt=require('jsonwebtoken');
 const Admin=require('./../Models/adminModel')
+const Cart=require('./../Models/cartModel');
 const AppError=require('./../utils/appError');
 //SIGNUP
 exports.signUp=async(req,res,next)=>{
@@ -100,3 +101,20 @@ exports.restrictTo=(...roles)=>{
         next();
     }
 }
+
+//cart validation
+ exports.checkCart =async (req,res,next)=>{
+    //console.log('in check')
+    const adminId=req.body.adminId;
+    //console.log('in check 2')
+    //console.log(adminId)
+     const cart = await Cart.findOne({adminId});
+     //console.log('in check 3')
+     if(!cart){
+        //console.log('in check 4')
+         return next ()
+     }else if(cart){
+        next(new AppError('User already has a Cart!!',400))
+     }
+     next();
+    }

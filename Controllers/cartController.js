@@ -1,4 +1,6 @@
 const Cart=require('./../Models/cartModel');
+
+
 //VIEW CART
 exports.viewCart=async(req,res)=>{
     try{
@@ -19,7 +21,10 @@ exports.viewCart=async(req,res)=>{
 //GET CART DETAILS BY PASSING ID
 exports.getCartById=async(req,res)=>{
     try{
-        const cart=await Cart.findById(req.params.id).populate('items');
+        const id=req.params.id;
+        const cart=await Cart.findById(req.params.id);
+        // const adminId=req.admin.id;
+        // const cart = await Cart.findOne({adminId}).populate('items')
         res.status(200).json({
         status:'success',
         data:{
@@ -35,18 +40,14 @@ exports.getCartById=async(req,res)=>{
 }
 //ADD ITEM TO CART
 exports.addToCart=async(req,res)=>{
-    console.log('b')
     try{
-        console.log('c')
         const newcart=await Cart.create(req.body);
-        console.log('d')
         res.status(201).json({
         status:'success',
         data:{
             newcart
         }
     })
-    console.log('e')
     }catch(err){
         res.status(404).json({
             status:'fail',
@@ -69,3 +70,6 @@ exports.removeItem=async(req,res)=>{
         })
     }  
 }
+
+
+

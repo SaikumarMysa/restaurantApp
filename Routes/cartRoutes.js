@@ -1,10 +1,11 @@
 const express=require('express');
+const authController=require('./../Controllers/authController');
 const cartController=require('./../Controllers/cartController');
 const router=express.Router();
 router
 .route('/')
 .get(cartController.viewCart)
-.post(cartController.addToCart)
+.post(authController.checkCart,cartController.addToCart) //cartController.checkCart,
 
  router
  .route('/:id')

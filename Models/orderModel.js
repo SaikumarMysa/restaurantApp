@@ -1,32 +1,28 @@
 const mongoose=require('mongoose');
-const Customer=require('./customerModel');
 const Cart=require('./cartModel');
 const OrderSchema=new mongoose.Schema({
-    customer_name:{
-        type:String,
-        required:[true,'provide  customer name']
+    adminId:{
+        type:mongoose.Schema.ObjectId,
+        ref:'User'
     },
-    order_id:String,
-    order_date:{
-        type:Date,
-        default:Date.now()
+    cartId:{
+        type:mongoose.Schema.ObjectId,
+        ref:'Cart'
     },
-    item_id:{
-        type:String,
-        required:[true,'provide item_id']
-    },
-    item_name:{
-        type:String,
-        required:[true,'food item should have a name'],
-        trim:true,
-        lowercase:true
-    },
-    quantity:Number,
-    price:{
-        type:Number,
-        required:true
-    },
-    Items:Number,
-    TotalAmount:Number
+    orderSummary:[
+        {
+            subTotalPrice:Number,
+            gst:Number,
+            shippingCharges:Number,
+            statusOrder:{
+                type:String,
+                enum:['processing','pending','cancelled','completed']
+            },
+            finalTotalPrice:Number,
+            billingAddress:String
+        }
+    ]
+    
 })
 const Order=mongoose.model('Order',OrderSchema);
+module.exports=Order;

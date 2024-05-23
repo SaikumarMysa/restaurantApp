@@ -1,8 +1,9 @@
 const mongoose=require('mongoose');
 const cartSchema=new mongoose.Schema({
       adminId:{
-        type:String,
-        required:true
+        type:mongoose.Schema.ObjectId,
+        ref:'Admin',
+        //unique:[true,'A Cart already exists!']
       },
       items:[{
         type:mongoose.Schema.ObjectId,
@@ -11,6 +12,11 @@ const cartSchema=new mongoose.Schema({
       quantity:Number
 })
 
+//document middleware
+cartSchema.pre('save',function(next){
+  //console.log('save data')
+  next();
+})
 //querymiddleware
 cartSchema.pre(/^find/,function(next){
   this.populate({
