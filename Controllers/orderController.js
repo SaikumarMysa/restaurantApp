@@ -2,11 +2,11 @@ const Order=require('./../Models/orderModel');
 // CREATE ORDER
 exports.createOrder=async(req,res)=>{
     try{
-        const ordercreated=await Order.create(req.body);
+        const order=await Order.create(req.body);
         res.status(201).json({
             status:'success',
             data:{
-                ordercreated
+                order
             }
         })
     }catch(err){
@@ -21,7 +21,10 @@ exports.createOrder=async(req,res)=>{
 //VIEW CART
 exports.viewOrder=async(req,res)=>{
     try{
-        const order=await Order.find();
+        console.log('a')
+        const order=await Order.find()
+        //.populate({path:'products',select:'foodItem'});
+        console.log(order)
         res.status(200).json({
         status:'success',
         data:{
