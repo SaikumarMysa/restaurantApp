@@ -1,7 +1,9 @@
 const express=require('express');
 const Admin = require('../Models/adminModel');
-
-
+exports.getProfile=(req,res,next)=>{
+    req.params.id =req.admin.id;
+    next();
+}
 //GET ADMINS:
 exports. getAllAdmins=async(req,res)=>{
     try
@@ -23,11 +25,12 @@ exports. getAllAdmins=async(req,res)=>{
         })
     }   
 }
+
 //GET ADMIN BY ID:
 exports.getAdminById=async(req,res)=>{
     try
     {
-        const admin=await Admin.findById(req.params.id);
+        const admin=await Admin.findById(req.params.id).populate({path:'reviews',select:'-admin review rating fooditem'})
         res.status(200).json({
         status:'success',
         data:{
@@ -97,4 +100,6 @@ exports.deleteAdmin=async(req,res)=>{
         })
     }
 }
+
+
 

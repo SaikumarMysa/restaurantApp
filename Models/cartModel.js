@@ -1,29 +1,33 @@
 const mongoose=require('mongoose');
+const User=require('./userModel');
+const itemSchema=require('./itemSchema');
 const cartSchema=new mongoose.Schema({
-      adminId:{
+      userId:{
         type:mongoose.Schema.ObjectId,
-        ref:'Admin',
-        //unique:[true,'A Cart already exists!']
+        ref:'User',
+        required:true
       },
-      items:[{
-        type:mongoose.Schema.ObjectId,
-        ref:'Fooditem'
-      }],
-      quantity:Number
-})
+      items:[itemSchema],
+      subTotal:{
+        type:Number,
+        default:0
+      },
+    active:{
+      type:Boolean,
+      default:true,
+      select:false
+    }
+});
 
 //document middleware
 cartSchema.pre('save',function(next){
-  //console.log('save data')
   next();
 })
 //querymiddleware
 cartSchema.pre(/^find/,function(next){
-  this.populate({
-    path:'items',
-    select:'-__v'
-  });
+  //this points to the current query
+  this.find({active:{$ne:false}})
   next();
-})
+});
 const Cart=mongoose.model('Cart',cartSchema);
 module.exports=Cart;

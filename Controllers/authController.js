@@ -57,7 +57,7 @@ exports.login=async(req,res,next)=>{
 
 //Protecting routes from random login's
 exports.protect= async (req,res,next) => {
-    //console.log(req.headers)
+    
     //1.provide token
     let token;
     if(req.headers.authorization && req.headers.authorization.startsWith('Bearer')){
@@ -72,18 +72,20 @@ exports.protect= async (req,res,next) => {
     // 2. check whether given token is valid or not
      
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-
+    
     //console.log('decoded: '+decoded);
 
     // 3. check if user still exists in our db
 
     const currentAdmin= await Admin.findById(decoded.id);
+    
       if(!currentAdmin){
         return next(new AppError('The Admin belonging to this token doesnot exist',401))
       }
 
     // 4. Checking if admin has changed his password after token issused
      if(currentAdmin.changedPasswordAfter(decoded.iat)){
+        
         return next(new AppError('Admin recently changed his password, please log in again',401))
      }
 
@@ -114,7 +116,7 @@ exports.restrictTo=(...roles)=>{
         //console.log('in check 4')
          return next ()
      }else if(cart){
-        next(new AppError('User already has a Cart!!',400))
+        next(new AppError('A cart exists!',400))
      }
      next();
     }

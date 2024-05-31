@@ -15,7 +15,8 @@ const adminSchema=new mongoose.Schema({
     password:{
         type:String,
         required:[true,'Please provide Password'],
-        minlength:8
+        minlength:8,
+        select:false
     },
     passwordConfirm:{
         type:String,
@@ -37,9 +38,21 @@ const adminSchema=new mongoose.Schema({
         type:Boolean,
         default:true,
         select:false
-    }
-    
-    
+    },
+    review:{
+        type:mongoose.Schema.ObjectId,
+        ref:'Review'
+    }       
+},
+{
+    toJSON:{virtuals:true},
+    toObject:{virtuals:true}
+})
+//virtuals
+adminSchema.virtual('reviews',{
+    ref:'Review',
+    foreignField:'admin',
+    localField:'_id'
 })
 //Document middleware
 adminSchema.pre('save',async function (next) {
@@ -85,6 +98,7 @@ adminSchema.pre(/^find/,function(next){
     this.find({active:{$ne:false}})
     next();
 })
+//populate
 const Admin=mongoose.model('Admin',adminSchema);
 module.exports=Admin;
 

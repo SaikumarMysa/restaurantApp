@@ -1,13 +1,13 @@
 const mongoose=require('mongoose');
+const Review=require('./reviewModel');
 const foodSchema=new mongoose.Schema({
-    
     category:{
         type:String,
         lowercase:true,
         required:[true, 'category must be named!'],
         enum:['starters','maincourse','beverages','desserts']
     },
-    foodItem_name:{
+    name:{
         type:String,
         required:[true,'food item must have a name'],
     },
@@ -15,7 +15,11 @@ const foodSchema=new mongoose.Schema({
         type:Number,
         required:true
     },
-    images:String,
+    images:[String],
+    imageCover:{
+        type:String,
+        required:[true,'A fooditem must have a cover image']
+    },
     description:{
         type:String,
         trim:true
@@ -24,14 +28,45 @@ const foodSchema=new mongoose.Schema({
         type:Boolean,
         default:true,
         select:false
+    },
+    admin:{
+        type:mongoose.Schema.ObjectId,
+        ref:'Admin'
+    },
+    ratingsQuantity:{
+        type:Number,
+        default:0,
+        required:true
+    },
+    ratingsAverage:{
+        type:Number,
+        default:0,
+        required:true
     }
-    
+       
+},{
+    toJSON:{virtuals:true},
+    toObject:{virtuals:true}
+})
+
+//virtual for showing reviews on fooditems
+foodSchema.virtual('reviews',{
+    ref:'Review',
+    foreignField:'fooditem',
+    localField:'_id'
 })
 foodSchema.pre('save',function(next){
     //console.log('saves doc');
     next();
 })
 //querymiddleware
+foodSchema.pre(/^find/,function(next){
+    this.populate({
+        path:'reviews',
+        select:'review rating  -fooditem -_id'
+    })
+    next();
+})
 foodSchema.pre(/^find/,function(next){
     this.find({active:{$ne:false}})
     //this.find();

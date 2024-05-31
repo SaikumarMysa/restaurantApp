@@ -1,75 +1,113 @@
 const Cart=require('./../Models/cartModel');
-
-
-//VIEW CART
-exports.viewCart=async(req,res)=>{
-    try{
-        const cart=await Cart.find().populate('items');
-        res.status(200).json({
-        status:'success',
-        data:{
-            cart
-        }
-    })
-    }catch(err){
-        res.status(404).json({
-            status:'fail',
-            message:err
-        })
-    }  
-}
-//GET CART DETAILS BY PASSING ID
-exports.getCartById=async(req,res)=>{
-    try{
-        const id=req.params.id;
-        const cart=await Cart.findById(req.params.id);
-        // const adminId=req.admin.id;
-        // const cart = await Cart.findOne({adminId}).populate('items')
-        res.status(200).json({
-        status:'success',
-        data:{
-            cart
-        }
-    })
-    }catch(err){
-        res.status(404).json({
-            status:'fail',
-            message:err
-        })
-    }  
-}
-//ADD ITEM TO CART
+const itemSchema=require('./../Models/itemSchema');
+const Fooditem=require('./../Models/foodItemModel');
+const AppError=require('./../utils/appError')
+//ADD  ITEM TO CART
 exports.addToCart=async(req,res)=>{
+    const userId=req.params.userId;
+    const{itemId,quantity}=req.body;
     try{
-        const newcart=await Cart.create(req.body);
-        res.status(201).json({
-        status:'success',
-        data:{
-            newcart
+        let cart=await Cart.findOne({userId});
+        let food=await Fooditem.findById(itemId);
+        //console.log(food.price)
+        if(cart){
+            //if added same item to cart, then finding its index
+            let itemIndex=cart.items.findIndex(p=>p.itemId.toString()===itemId);
+            if(itemIndex>-1){
+                //item exists in the cart ,update item quantity and total(price)
+                cart.items[itemIndex].quantity+=quantity;
+                cart.items[itemIndex].price=food.price;
+                cart.items[itemIndex].total=cart.items[itemIndex].quantity*food.price;
+            }
+            else{
+                //item doesnot exists in cart(if a new item is added ), so add new item
+                //cart.items.push({itemId,quantity,price,total:quantity*price});
+                cart.items.push({
+                    itemId:itemId,
+                    quantity:quantity,
+                    price:food.price,
+                    total:quantity*food.price
+                })
+            }
+        }else{
+            //when there is ***NO CART***-->create a newcart
+            //also add new items
+            let price=food.price
+            cart = new Cart({
+                userId,
+                items:[{itemId,quantity,price:food.price,total:quantity*price}],
+            });
         }
-    })
-    }catch(err){
-        res.status(404).json({
-            status:'fail',
-            message:err
-        })
-    }  
-}
-//REMOVE FROM CART
-exports.removeItem=async(req,res)=>{
+        // Update the subtotal
+        cart.subTotal = cart.items.reduce((acc, item) => acc + item.total, 0);
+        const newCart = await cart.save();
+        res.status(201).json({
+            status: 'success',
+            data: {
+                cart: newCart
+            }
+        });
+    } catch (err) {
+        console.log(err);
+        res.status(500).json({
+            status: 'fail',
+            message: 'Something went wrong'
+        });
+    }
+};
+
+// GET USER CART
+exports.getCart=async(req,res)=>{
     try{
-        await Cart.findByIdAndUpdate(req.params.id);
+        const userId=req.params.userId;
+        const cart=await Cart.findOne({userId});
         res.status(200).json({
-        status:'success',
-        data: null   
-    })
+            status:'success',
+            data:{
+                cart
+            }
+        });
     }catch(err){
-        res.status(404).json({
+        res.status(400).json({
             status:'fail',
-            message:err
-        })
-    }  
+            message:err.message
+        })   
+    }
 }
 
-
+// REMOVE ITEM FROM CART
+exports.removeFromCart=async(req,res)=>{
+    try{
+        const userId=req.params.userId;
+        //console.log(userId)
+        const itemId=req.body.itemId;
+        //console.log(itemId)
+        const cart=await Cart.findOne({userId})
+        if(!cart) return res.status(400).json({
+            message:'No Cart is found for this user'
+        })
+        let itemIndex=cart.items.findIndex(p=>p.itemId.toString()===itemId);
+        //console.log(itemIndex)
+        if(itemIndex>-1){
+            cart.items.splice(itemIndex,1);
+            //recalculate subTotal
+            cart.subTotal = cart.items.reduce((acc, item) => acc + item.total, 0);
+            const removedCart=await cart.save();
+            res.status(201).json({
+                status:'success',
+                message:'Item removed from Cart!'
+            })
+        }else{
+                res.status(400).json({
+                status:'fail',
+                message:'Item doesnot exist in Cart!'
+            })
+        }    
+    }catch(err){
+        res.status(400).json({
+            status:'fail',
+            message:err.message
+        })
+    }
+}
 

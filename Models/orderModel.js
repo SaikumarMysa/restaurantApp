@@ -1,19 +1,16 @@
 const mongoose=require('mongoose');
+const User=require('./userModel')
 const Cart=require('./cartModel');
+const itemSchema=require('./../Models/itemSchema')
 const orderSchema=new mongoose.Schema({
-    adminId:{
+    userId:{
         type:mongoose.Schema.ObjectId,
         ref:'User'
     },
-    cartId:{
+    orderItems:{//here passing the cart id
         type:mongoose.Schema.ObjectId,
         ref:'Cart'
     },
-    products:[{
-        type:mongoose.Schema.ObjectId,
-        ref:'Fooditem'
-    }],
-    quantity:Number,
     subTotalPrice:{
         type:Number,
         required:true
@@ -26,27 +23,39 @@ const orderSchema=new mongoose.Schema({
         type:Number,
         required:true
     },
-    statusOrder:{
-    type:String,
-    enum:['processing','pending','cancelled','completed']
-    },
-    // finalTotalPrice:{
-    //     type:Number,
-    //     required:true
-    // },
-    billingAddress:{
+    shippingAddress1:{
         type:String,
         required:true
+    },
+    shippingAddress2:{
+        type:String,
+    },
+    city:{
+        type:String,
+        required:true
+    },
+    zip:{
+        type:String,
+        required:true
+    },
+    phone:{
+        type:String,
+        required:true
+    },
+    status:{
+        type:String,
+        enum:['pending','processing','completed','cancelled'],
+        default:'processing'
     },
     orderDate:{
         type:Date,
         default:Date.now()
     }
-}
-,{
-    toJSON:{virtuals:true},
+},
+{
+    toJSON:{virtuals:true},  
     toObject:{virtuals:true}
-}
+}  
 )
 // //virtual for finalTotalPrice:data will not be saved in db
 orderSchema.virtual('finalTotalPrice').get (function(next){
@@ -56,14 +65,10 @@ orderSchema.virtual('finalTotalPrice').get (function(next){
 //querymiddleware
 orderSchema.pre(/^find/,function(next){
     this.populate({
-        path:'products',
-        select:'foodItem_name price'
+        path:'orderItems',
+        select:'-_id -userId'
     })
     next();
 })
-
-
-
-
 const Order=mongoose.model('Order',orderSchema);
 module.exports=Order;
