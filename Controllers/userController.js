@@ -3,9 +3,9 @@ const AppError=require('./../utils/appError');
 const multer=require('multer');
 const sharp=require('sharp');
 const multerStorage=multer.memoryStorage({
-  destination:(req,file,cb)=>{
-    cb(null,'public/img/fooditems');
-  },
+  // destination:(req,file,cb)=>{
+  //   cb(null,'public/img/fooditems');
+  // },
   filename:(req,file,cb)=>{
     const ext=file.mimetype.split('/')[1];
     cb(null,`user-${req.user.id}-${Date.now()}.${ext}`)
@@ -38,28 +38,100 @@ exports.getMe=(req,res,next)=>{
   req.params.id =req.user.id;
   next();
 }
-exports.getUser = async(req, res) => {
-  const user=await User.findById(req.params.id)
-  res.status(200).json({
-    status: 'success',
-    data:{
-      user
-    }
-  })
-};
-exports.getAllUsers=async(req,res)=>{
-  const users=await User.find()
-    res.status(200).json({
-      status: 'success',
-      data: {
-        users:users
+//GET USER BY ID
+exports.getUserId=async(req,res)=>{
+  try
+  {
+      const user=await User.findById(req.params.id).populate({path:'reviews',select:' review rating fooditem'})
+      res.status(200).json({
+      status:'success',
+      data:{
+          user
       }
-    });
+  })
+  }catch(err){
+      res.status(404).json({
+          status:'fail',
+          message:err
+
+      })
+  }   
+}
+//GET ALL USERS
+exports. getAllUsers=async(req,res)=>{
+  try
+  {
+      const users=await User.find(req.query);
+      console.log(req.query);
+      res.status(200).json({
+      status:'success',
+      results:users.length,
+      data:{
+          users
+      }
+  })
+  }catch(err){
+      res.status(404).json({
+          status:'fail',
+          message:err
+      })
+  }   
 };
 
+//CREATE USER
+exports.createUser=async(req,res)=>{
+  try{
+      const newUser=await User.create(req.body);
+      res.status(201).json({
+          status:'success',
+          data:{
+              newUser
+          }
+      })
+  }catch(err){
+      res.status(404).json({
+          status:'fail',
+          message:err
+      })
+  }
+}
+
+//UPDATE USER
+exports.updateUser=async(req,res)=>{
+  try{
+      const updatedUser=await User.findByIdAndUpdate(req.params.id,
+          req.body)
+      res.status(200).json({
+          status:'success',
+          data:{
+              newUser:updatedUser
+          }
+      })
+  }catch(err){
+      res.status(404).json({
+          status:'fail',
+          message:err
+      })
+  }
+}
+
+//DELETE USER
+exports.deleteUser=async(req,res)=>{
+  try{
+      const user=await User.findByIdAndUpdate(req.params.id,{active:false});
+      res.status(200).json({
+      status:'success',
+      data:null
+  })
+  }catch(err){
+      res.status(404).json({
+          status:'fail',
+          message:err.message
+      })
+  }
+}
 //UPDATE CURRENT USER
 exports.updateMe=async(req,res)=>{
-
    //console.log(req.body);
    //console.log(req.file);
   //1.create error if user posts password related data
@@ -95,3 +167,9 @@ exports.deleteMe=async(req,res)=>{
     data:null
   })
 }
+
+
+
+
+
+

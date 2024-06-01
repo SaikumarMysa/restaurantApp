@@ -1,403 +1,202 @@
 [
     {
         "category": "beverages",
-        "foodItem_name": "item 1",
+        "name": "Coffee",
         "price": 35
     },
     {
         "category": "beverages",
-        "foodItem_name": "item 2",
+        "name": "Tea",
         "price": 35
     },
     {
         "category": "beverages",
-        "foodItem_name": "item 3",
+        "name": "Orange Juice",
         "price": 35
     },
     {
         "category": "beverages",
-        "foodItem_name": "item 4",
+        "name": "Apple Juice",
         "price": 35
     },
     {
         "category": "beverages",
-        "foodItem_name": "item 5",
+        "name": "Lemonade",
         "price": 35
     },
     {
         "category": "beverages",
-        "foodItem_name": "item 6",
+        "name": "Iced Tea",
         "price": 35
     },
     {
         "category": "beverages",
-        "foodItem_name": "item 7",
+        "name": "Hot Chocolate",
         "price": 35
     },
     {
         "category": "beverages",
-        "foodItem_name": "item 8",
+        "name": "Smoothie",
         "price": 35
     },
     {
         "category": "beverages",
-        "foodItem_name": "item 9",
+        "name": "Soda",
         "price": 35
     },
     {
         "category": "beverages",
-        "foodItem_name": "item 10",
-        "price": 35
-    },
-    {
-        "category": "beverages",
-        "foodItem_name": "item 11",
-        "price": 35
-    },
-    {
-        "category": "beverages",
-        "foodItem_name": "item 12",
-        "price": 35
-    },
-    {
-        "category": "beverages",
-        "foodItem_name": "item 13",
-        "price": 35
-    },
-    {
-        "category": "beverages",
-        "foodItem_name": "item 14",
-        "price": 35
-    },
-    {
-        "category": "beverages",
-        "foodItem_name": "item 15",
-        "price": 35
-    },
-    {
-        "category": "beverages",
-        "foodItem_name": "item 16",
-        "price": 35
-    },
-    {
-        "category": "beverages",
-        "foodItem_name": "item 17",
-        "price": 35
-    },
-    {
-        "category": "beverages",
-        "foodItem_name": "item 18",
-        "price": 35
-    },
-    {
-        "category": "beverages",
-        "foodItem_name": "item 19",
-        "price": 35
-    },
-    {
-        "category": "beverages",
-        "foodItem_name": "item 20",
+        "name": "Water",
         "price": 35
     },
     {
         "category": "starters",
-        "foodItem_name": "item 1",
+        "name": "Garlic Bread",
         "price": 25
     },
     {
         "category": "starters",
-        "foodItem_name": "item 2",
+        "name": "Bruschetta",
         "price": 25
     },
     {
         "category": "starters",
-        "foodItem_name": "item 3",
+        "name": "Chicken Wings",
         "price": 25
     },
     {
         "category": "starters",
-        "foodItem_name": "item 4",
+        "name": "Mozzarella Sticks",
         "price": 25
     },
     {
         "category": "starters",
-        "foodItem_name": "item 5",
+        "name": "Nachos",
         "price": 25
     },
     {
         "category": "starters",
-        "foodItem_name": "item 6",
+        "name": "Spring Rolls",
         "price": 25
     },
     {
         "category": "starters",
-        "foodItem_name": "item 7",
+        "name": "Stuffed Mushrooms",
         "price": 25
     },
     {
         "category": "starters",
-        "foodItem_name": "item 8",
+        "name": "Onion Rings",
         "price": 25
     },
     {
         "category": "starters",
-        "foodItem_name": "item 9",
+        "name": "Calamari",
         "price": 25
     },
     {
         "category": "starters",
-        "foodItem_name": "item 10",
-        "price": 25
-    },
-    {
-        "category": "starters",
-        "foodItem_name": "item 11",
-        "price": 25
-    },
-    {
-        "category": "starters",
-        "foodItem_name": "item 12",
-        "price": 25
-    },
-    {
-        "category": "starters",
-        "foodItem_name": "item 13",
-        "price": 25
-    },
-    {
-        "category": "starters",
-        "foodItem_name": "item 14",
-        "price": 25
-    },
-    {
-        "category": "starters",
-        "foodItem_name": "item 15",
-        "price": 25
-    },
-    {
-        "category": "starters",
-        "foodItem_name": "item 16",
-        "price": 25
-    },
-    {
-        "category": "starters",
-        "foodItem_name": "item 17",
-        "price": 25
-    },
-    {
-        "category": "starters",
-        "foodItem_name": "item 18",
-        "price": 25
-    },
-    {
-        "category": "starters",
-        "foodItem_name": "item 19",
-        "price": 25
-    },
-    {
-        "category": "starters",
-        "foodItem_name": "item 20",
+        "name": "Meatballs",
         "price": 25
     },
     {
         "category": "desserts",
-        "foodItem_name": "item 1",
+        "name": "Chocolate Cake",
         "price": 20
     },
     {
         "category": "desserts",
-        "foodItem_name": "item 2",
+        "name": "Ice Cream",
         "price": 20
     },
     {
         "category": "desserts",
-        "foodItem_name": "item 3",
+        "name": "Cheesecake",
         "price": 20
     },
     {
         "category": "desserts",
-        "foodItem_name": "item 4",
+        "name": "Brownie",
         "price": 20
     },
     {
         "category": "desserts",
-        "foodItem_name": "item 5",
+        "name": "Tiramisu",
         "price": 20
     },
     {
         "category": "desserts",
-        "foodItem_name": "item 6",
+        "name": "Apple Pie",
         "price": 20
     },
     {
         "category": "desserts",
-        "foodItem_name": "item 7",
+        "name": "Pudding",
         "price": 20
     },
     {
         "category": "desserts",
-        "foodItem_name": "item 8",
+        "name": "Macaron",
         "price": 20
     },
     {
         "category": "desserts",
-        "foodItem_name": "item 9",
+        "name": "Cupcake",
         "price": 20
     },
     {
         "category": "desserts",
-        "foodItem_name": "item 10",
-        "price": 20
-    },
-    {
-        "category": "desserts",
-        "foodItem_name": "item 11",
-        "price": 20
-    },
-    {
-        "category": "desserts",
-        "foodItem_name": "item 12",
-        "price": 20
-    },
-    {
-        "category": "desserts",
-        "foodItem_name": "item 13",
-        "price": 20
-    },
-    {
-        "category": "desserts",
-        "foodItem_name": "item 14",
-        "price": 20
-    },
-    {
-        "category": "desserts",
-        "foodItem_name": "item 15",
-        "price": 20
-    },
-    {
-        "category": "desserts",
-        "foodItem_name": "item 16",
-        "price": 20
-    },
-    {
-        "category": "desserts",
-        "foodItem_name": "item 17",
-        "price": 20
-    },
-    {
-        "category": "desserts",
-        "foodItem_name": "item 18",
-        "price": 20
-    },
-    {
-        "category": "desserts",
-        "foodItem_name": "item 19",
-        "price": 20
-    },
-    {
-        "category": "desserts",
-        "foodItem_name": "item 20",
+        "name": "Fruit Salad",
         "price": 20
     },
     {
         "category": "maincourse",
-        "foodItem_name": "item 1",
+        "name": "Grilled Chicken",
         "price": 200
     },
     {
         "category": "maincourse",
-        "foodItem_name": "item 2",
+        "name": "Steak",
         "price": 200
     },
     {
         "category": "maincourse",
-        "foodItem_name": "item 3",
+        "name": "Spaghetti Bolognese",
         "price": 200
     },
     {
         "category": "maincourse",
-        "foodItem_name": "item 4",
+        "name": "Beef Burger",
         "price": 200
     },
     {
         "category": "maincourse",
-        "foodItem_name": "item 5",
+        "name": "Veggie Pizza",
         "price": 200
     },
     {
         "category": "maincourse",
-        "foodItem_name": "item 6",
+        "name": "Grilled Salmon",
         "price": 200
     },
     {
         "category": "maincourse",
-        "foodItem_name": "item 7",
+        "name": "Chicken Alfredo",
         "price": 200
     },
     {
         "category": "maincourse",
-        "foodItem_name": "item 8",
+        "name": "Tacos",
         "price": 200
     },
     {
         "category": "maincourse",
-        "foodItem_name": "item 9",
+        "name": "Lasagna",
         "price": 200
     },
     {
         "category": "maincourse",
-        "foodItem_name": "item 10",
-        "price": 200
-    },
-    {
-        "category": "maincourse",
-        "foodItem_name": "item 11",
-        "price": 200
-    },
-    {
-        "category": "maincourse",
-        "foodItem_name": "item 12",
-        "price": 200
-    },
-    {
-        "category": "maincourse",
-        "foodItem_name": "item 13",
-        "price": 200
-    },
-    {
-        "category": "maincourse",
-        "foodItem_name": "item 14",
-        "price": 200
-    },
-    {
-        "category": "maincourse",
-        "foodItem_name": "item 15",
-        "price": 200
-    },
-    {
-        "category": "maincourse",
-        "foodItem_name": "item 16",
-        "price": 200
-    },
-    {
-        "category": "maincourse",
-        "foodItem_name": "item 17",
-        "price": 200
-    },
-    {
-        "category": "maincourse",
-        "foodItem_name": "item 18",
-        "price": 200
-    },
-    {
-        "category": "maincourse",
-        "foodItem_name": "item 19",
-        "price": 200
-    },
-    {
-        "category": "maincourse",
-        "foodItem_name": "item 20",
+        "name": "Sushi",
         "price": 200
     }
-
 ]

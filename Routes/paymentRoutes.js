@@ -5,7 +5,7 @@ const router=express.Router();
 router
 // .route('/checkOut-session/:cartId')
 .get('/checkOut-session/:cartId',
-    userAuthController.protect,
-    paymentController.getCheckOutSession)
+userAuthController.protect,
+paymentController.getCheckOutSession)
 module.exports=router;
 

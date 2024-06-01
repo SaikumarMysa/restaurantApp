@@ -18,7 +18,7 @@ const foodSchema=new mongoose.Schema({
     images:[String],
     imageCover:{
         type:String,
-        required:[true,'A fooditem must have a cover image']
+        //required:[true,'A fooditem must have a cover image']
     },
     description:{
         type:String,
@@ -29,9 +29,9 @@ const foodSchema=new mongoose.Schema({
         default:true,
         select:false
     },
-    admin:{
+    user:{
         type:mongoose.Schema.ObjectId,
-        ref:'Admin'
+        ref:'User'
     },
     ratingsQuantity:{
         type:Number,

@@ -43,7 +43,8 @@ exports.createOrder=async(req,res)=>{
 
 //GET ORDERS
 exports.getOrder=async(req,res)=>{
-    const order=await Order.findOne({userId:req.params.userId})
+    const userId=req.params.userId
+    const order=await Order.findOne({userId})
     res.status(200).json({
         status:'success',
         data:{

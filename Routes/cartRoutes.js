@@ -1,13 +1,14 @@
 const express=require('express');
-const authController=require('./../Controllers/authController');
+const userAuthController=require('./../Controllers/userAuthController');
 const cartController=require('./../Controllers/cartController');
 const router=express.Router();
-
+//user routes
  router
  .route('/:userId')
- .get(cartController.getCart)
- .post(cartController.addToCart)
- .delete(cartController.removeFromCart)
+ .get(userAuthController.protect,cartController.getCart)
+ .post(userAuthController.protect,
+userAuthController.setUserId,
+cartController.addToCart)
+ .delete(userAuthController.protect,cartController.removeFromCart)
 //  .patch(cartController.updateCart);
-
 module.exports=router;

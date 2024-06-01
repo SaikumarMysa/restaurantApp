@@ -21,7 +21,7 @@ exports.getCheckOutSession=async(req,res,next)=>{
                     product_data:{
                         name:'fooditem'
                     },
-                    unit_amount:cart.subTotal*100
+                    unit_amount:cart.subTotal
                 },
                 quantity:1
             }

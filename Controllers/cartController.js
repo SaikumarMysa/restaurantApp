@@ -2,8 +2,10 @@ const Cart=require('./../Models/cartModel');
 const itemSchema=require('./../Models/itemSchema');
 const Fooditem=require('./../Models/foodItemModel');
 const AppError=require('./../utils/appError')
+
 //ADD  ITEM TO CART
 exports.addToCart=async(req,res)=>{
+    const adminId=req.params.adminId;
     const userId=req.params.userId;
     const{itemId,quantity}=req.body;
     try{
@@ -56,13 +58,14 @@ exports.addToCart=async(req,res)=>{
     }
 };
 
-// GET USER CART
+// GET USER CART based on his userId
 exports.getCart=async(req,res)=>{
     try{
         const userId=req.params.userId;
         const cart=await Cart.findOne({userId});
         res.status(200).json({
             status:'success',
+            results:cart.items.length,
             data:{
                 cart
             }

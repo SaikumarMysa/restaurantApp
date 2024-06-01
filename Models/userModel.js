@@ -3,6 +3,7 @@ const mongoose=require('mongoose');
 const validator=require('validator')
 const bcrypt=require('bcryptjs');
 const crypto=require('crypto');
+const Review=require('./reviewModel')
 const userSchema=new mongoose.Schema({
     name:{
         type:String,
@@ -37,6 +38,8 @@ const userSchema=new mongoose.Schema({
     passwordChangedAt:Date,
     role:{
         type:String,
+        enum:['admin','subadmin','superadmin','user'],
+        required:[true,'please specify your role'],
         default:'user'
     },
     passwordResetToken:String,
@@ -45,7 +48,21 @@ const userSchema=new mongoose.Schema({
         type:Boolean,
         default:true,
         select:false
-    } 
+    },
+    review:{
+        type:mongoose.Schema.ObjectId,
+        ref:'Review'
+    }     
+},
+{
+    toJSON:{virtuals:true},
+    toObject:{virtuals:true}
+})
+//virtuals
+userSchema.virtual('reviews',{
+    ref:'Review',
+    foreignField:'user',
+    localField:'_id'
 })
 //querymiddleware
 userSchema.pre(/^find/,function(next){

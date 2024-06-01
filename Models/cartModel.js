@@ -6,7 +6,7 @@ const cartSchema=new mongoose.Schema({
         type:mongoose.Schema.ObjectId,
         ref:'User',
         required:true
-      },
+    },
       items:[itemSchema],
       subTotal:{
         type:Number,
@@ -18,7 +18,6 @@ const cartSchema=new mongoose.Schema({
       select:false
     }
 });
-
 //document middleware
 cartSchema.pre('save',function(next){
   next();

@@ -1,10 +1,10 @@
 const express =require('express');
 const orderController=require('./../Controllers/orderController');
-const authController=require('./../Controllers/authController')
+const userAuthController=require('./../Controllers/userAuthController');
 const router=express.Router();
 router
 .route('/:userId')
-.get(orderController.getOrder)
-.post(orderController.createOrder)
+.get(userAuthController.protect,orderController.getOrder)
+.post(userAuthController.protect,userAuthController.setUserId,orderController.createOrder)
     
 module.exports=router;

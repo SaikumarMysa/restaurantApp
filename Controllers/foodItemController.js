@@ -75,8 +75,7 @@ exports.getAllFoodItems=async(req,res)=>{
 
 exports.getFoodById=async(req,res)=>{
     try{
-        console.log('a1')
-        const foodItem=await Fooditem.findById(req.params.id)
+        const foodItem=await Fooditem.findById(req.params.foodItemId)
         res.status(200).json({
             status:'success',
             data:{
@@ -114,7 +113,7 @@ exports.updateFoodItem= async(req,res)=>{
     console.log(req.body);
     console.log(req.files);
     try{
-        const updatedFood = await Fooditem.findByIdAndUpdate(req.params.id,req.body,{new:true, runValidators:true});
+        const updatedFood = await Fooditem.findByIdAndUpdate(req.params.foodItemId,req.body,{new:true, runValidators:true});
         res.status(200).json({
         status:'success',
         data:{
@@ -132,7 +131,7 @@ exports.updateFoodItem= async(req,res)=>{
 //delete Fooditem
 exports.deleteFoodItem=async(req,res)=>{
     try{
-        await Fooditem.findByIdAndUpdate(req.params.id,{active:false});
+        await Fooditem.findByIdAndUpdate(req.params.foodItemId,{active:false});
         res.status(200).json({
         status:'success',
         data:null

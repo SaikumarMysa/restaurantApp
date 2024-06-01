@@ -1,6 +1,6 @@
 const mongoose=require('mongoose');
 const Fooditem=require('./foodItemModel');
-const Admin=require('./adminModel');
+const User=require('./userModel');
 const reviewSchema=new mongoose.Schema({
     review:{
         type:String,
@@ -20,10 +20,9 @@ const reviewSchema=new mongoose.Schema({
         ref:'Fooditem',
         required:true
     },
-    admin:{
+    user:{
         type:mongoose.Schema.ObjectId,
-        ref:'Admin',
-        required:true
+        ref:'User'
     },
     active:{
         type:Boolean,
@@ -90,7 +89,7 @@ reviewSchema.post(/^findOneAnd/,async function(){
 })
 
 //index for review-admin
-reviewSchema.index({admin:1,fooditem:1},{unique:true});
+//reviewSchema.index({admin:1,fooditem:1},{unique:true});
 // reviewSchema.pre('save',function(next){
 //     next();
 // })

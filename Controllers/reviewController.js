@@ -1,4 +1,5 @@
 const Review=require('./../Models/reviewModel');
+const AppError=require('./../utils/appError');
 exports.setAdminId=(req,res,next)=>{
     if(!req.body.admin) req.body.admin =req.admin.id;
     next();
@@ -50,7 +51,8 @@ exports.createReview=async(req,res)=>{
     try{
         if(!req.body.fooditem) req.body.fooditem=req.params.fooditemId
         if(!req.body.user) req.body.user =req.user.id;
-        if(!req.body.admin) req.body.admin =req.admin.id;
+        //if(!req.body.admin) req.body.admin =req.admin.id;
+        console.log(req.params.fooditemId)
         const newReview=await Review.create(req.body);
         res.status(201).json({
             status:'success',
@@ -88,10 +90,13 @@ exports.updateReview=async(req,res)=>{
 //DELETE REVIEW
 exports.deleteReview=async(req,res)=>{
     try{
-        console.log('1')
-        console.log(req.params.id)
-        await Review.findByIdAndUpdate(req.params.id,{active:false})
-        console.log('2')
+        const fooditem=req.params.fooditemId;
+        const review=await Review.findByIdAndUpdate(fooditem,{active:false});
+        if(!review){
+            return new AppError('no review found for given fooditem',400)
+        }
+        // review.active=false;
+        // await review.save()
         res.status(200).json({
         status:'success',
         data:null
@@ -99,8 +104,10 @@ exports.deleteReview=async(req,res)=>{
     }catch(err){
         res.status(404).json({
             status:'fail',
-            message:err
+            message:err.message
         })
     }
 }
+
+
 

@@ -4,6 +4,7 @@ const Cart=require('./../Models/cartModel');
 const AppError=require('./../utils/appError');
 const crypto=require('crypto');
 const sendEmail=require('./../utils/email');
+
 //SIGNUP
 exports.signUp=async(req,res,next)=>{
     try{
@@ -30,6 +31,7 @@ exports.signUp=async(req,res,next)=>{
                 message:err.message
             })
         }
+        next();
 }
 
 //LOGIN
@@ -67,7 +69,7 @@ exports.protect= async (req,res,next) => {
     }
     //check token is there or not
     if(!token){
-        return next(new AppError('You are not loggin in, please login to get access',401))
+        return next(new AppError('You are not logged in, please login to get access',401))
     }
     // 2. check whether given token is valid or not
      const decoded = jwt.verify(token, process.env.JWT_SECRET);
@@ -85,6 +87,10 @@ exports.protect= async (req,res,next) => {
      req.user=currentUser;
      next();
 }
+exports.setUserId=(req,res,next)=>{
+    if(!req.body.userId) req.body.userId =req.user.id;
+    next();
+}
 
 //Restrict To: authorized admins
 exports.restrictTo=(...roles)=>{
@@ -97,22 +103,6 @@ exports.restrictTo=(...roles)=>{
     }
 }
 
-//cart validation
- exports.checkCart =async (req,res,next)=>{
-    //console.log('in check')
-    const userId=req.body.userId;
-    //console.log('in check 2')
-    //console.log(adminId)
-     const cart = await Cart.findOne({userId});
-     //console.log('in check 3')
-     if(!cart){
-        //console.log('in check 4')
-         return next ()
-     }else if(cart){
-        next(new AppError('A cart exists!',400))
-     }
-     next();
-    }
 //FORGOT PASSWORD
 exports.forgotPassword=async(req,res,next)=>{
     //1.check whether if there's a user with given email
