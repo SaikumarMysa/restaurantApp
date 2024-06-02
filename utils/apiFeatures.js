@@ -6,8 +6,6 @@ class APIFeatures{
 
     }
     filter(){
-        // this.query=this.query.find(this.queryString)
-        // return this;
         const queryObj={...this.queryString};
         let queryStr=JSON.stringify(queryObj);
         queryStr=queryStr.replace(/\b(gte|gt|lte|lt)\b/g,match=>`$${match}`);
@@ -21,5 +19,6 @@ class APIFeatures{
         this.query= this.query.limit(limit).skip(skip);
         return this;
     }
+    
 }
 module.exports=APIFeatures;

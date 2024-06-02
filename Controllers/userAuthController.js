@@ -2,40 +2,33 @@ const jwt=require('jsonwebtoken');
 const User=require('./../Models/userModel')
 const Cart=require('./../Models/cartModel');
 const AppError=require('./../utils/appError');
+const catchAsync=require('./../utils/catchAsync');
 const crypto=require('crypto');
 const sendEmail=require('./../utils/email');
-
 //SIGNUP
-exports.signUp=async(req,res,next)=>{
-    try{
-        const newUser=await User.create({
-            name:req.body.name,
-            email:req.body.email,
-            password:req.body.password,
-            passwordConfirm:req.body.passwordConfirm,
-            role:req.body.role
+exports.signUp=catchAsync(async(req,res,next)=>{
+    const newUser=await User.create({
+        name:req.body.name,
+        email:req.body.email,
+        password:req.body.password,
+        passwordConfirm:req.body.passwordConfirm,
+        role:req.body.role
         })
-        const token=jwt.sign({id:newUser._id},process.env.JWT_SECRET,{
+    const token=jwt.sign({id:newUser._id},process.env.JWT_SECRET,{
             expiresIn:process.env.JWT_EXPIRES_IN
         });
-        res.status(201).json({
-            status:'success',
-            token,
-            data:{
-                user:newUser
-            }
-        })
-        }catch(err){
-            res.status(400).json({
-                status:'fail',
-                message:err.message
-            })
+    res.status(201).json({
+        status:'success',
+        token,
+        data:{
+            user:newUser
         }
-        next();
-}
+    })
+    next();
+})
 
 //LOGIN
-exports.login=async(req,res,next)=>{
+exports.login=catchAsync(async(req,res,next)=>{
     //user provides email,password
     const {email,password} = req.body;
     //1. check whether user has given email, password in body field
@@ -58,10 +51,10 @@ exports.login=async(req,res,next)=>{
 
     })
     next();
-}
+})
 
 //Protecting routes from random login's
-exports.protect= async (req,res,next) => {
+exports.protect=catchAsync(async(req,res,next)=>{
     //1.provide token
     let token;
     if(req.headers.authorization && req.headers.authorization.startsWith('Bearer')){
@@ -86,7 +79,9 @@ exports.protect= async (req,res,next) => {
      //When everything is clear grant permisson to protected route
      req.user=currentUser;
      next();
-}
+})
+
+//middleware for setting user id:
 exports.setUserId=(req,res,next)=>{
     if(!req.body.userId) req.body.userId =req.user.id;
     next();
@@ -94,7 +89,6 @@ exports.setUserId=(req,res,next)=>{
 
 //Restrict To: authorized admins
 exports.restrictTo=(...roles)=>{
-
     return (req, res, next) => {
         if(!roles.includes(req.user.role)){
            return next(new AppError('You do not have Permission to perform this action',403))
@@ -104,7 +98,7 @@ exports.restrictTo=(...roles)=>{
 }
 
 //FORGOT PASSWORD
-exports.forgotPassword=async(req,res,next)=>{
+exports.forgotPassword=catchAsync(async(req,res,next)=>{
     //1.check whether if there's a user with given email
     const user=await User.findOne({email:req.body.email});
     if(!user){
@@ -137,10 +131,10 @@ exports.forgotPassword=async(req,res,next)=>{
     return next(new AppError('There was an error sending the email! Try again later',500))
 }
 next();
-}
+})
 
 //RESET PASSWORD
-exports.resetPassword=async(req,res,next)=>{
+exports.resetPassword=catchAsync(async(req,res,next)=>{
     //1. get user based on token provided 
     const hashedToken=crypto
     .createHash('sha256')
@@ -168,5 +162,5 @@ exports.resetPassword=async(req,res,next)=>{
         token
      })
      next();
-}
+})
 

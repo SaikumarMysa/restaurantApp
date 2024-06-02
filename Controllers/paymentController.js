@@ -1,7 +1,8 @@
 const stripe=require('stripe')(process.env.STRIPE_SECRET_KEY)
 const Cart=require('./../Models/cartModel');
 const AppError=require('./../utils/appError');
-exports.getCheckOutSession=async(req,res,next)=>{
+const catchAsync=require('./../utils/catchAsync');
+exports.getCheckOutSession=catchAsync(async(req,res,next)=>{
     //1.Getting the cart
     const cart=await Cart.findById(req.params.cartId);
     console.log(cart)
@@ -33,4 +34,4 @@ exports.getCheckOutSession=async(req,res,next)=>{
         session
     })
     next();
-}
+})

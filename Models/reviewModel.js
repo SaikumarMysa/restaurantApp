@@ -22,7 +22,8 @@ const reviewSchema=new mongoose.Schema({
     },
     user:{
         type:mongoose.Schema.ObjectId,
-        ref:'User'
+        ref:'User',
+        required:true
     },
     active:{
         type:Boolean,
@@ -31,6 +32,9 @@ const reviewSchema=new mongoose.Schema({
     }
 
 })
+
+//index:for preventing same user:same fooditem:review
+reviewSchema.index({user:1,fooditem:1},{unique:true});
 reviewSchema.pre('save',function(next){
     next();
 })
@@ -81,18 +85,11 @@ reviewSchema.post('save',function(){
 //findByIdAndUpdate
 //findByIdAndDelete
 reviewSchema.pre(/^findOneAnd/,async function(next){
-    this.r=await this.findOne();
+    this.r=await this.clone().findOne();
     next();
 })
 reviewSchema.post(/^findOneAnd/,async function(){
     await this.r.constructor.calAverageRatings(this.r.fooditem)
 })
-
-//index for review-admin
-//reviewSchema.index({admin:1,fooditem:1},{unique:true});
-// reviewSchema.pre('save',function(next){
-//     next();
-// })
-
 const Review=mongoose.model('Review',reviewSchema);
 module.exports=Review;

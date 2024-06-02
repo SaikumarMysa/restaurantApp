@@ -17,12 +17,7 @@ const categorySchema=new mongoose.Schema({
         type:Boolean,
         default:true,
         select:false
-    },
-    // fooditem:{
-    //     type:mongoose.Schema.ObjectId,
-    //     ref:'Fooditem',
-    //     //required:true
-    // }  
+    }
 })
 
 //querymiddleware
@@ -30,10 +25,6 @@ categorySchema.pre(/^find/,function(next){
     this.find({active:{$ne:false}})
     next();
 })
-
-// categorySchema.pre(/^find/,function(next){
-//     this.pop
-// })
 
 //indexes
 //below index is for having a single named category, preventing multiple categories of same name

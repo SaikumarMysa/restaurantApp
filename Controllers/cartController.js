@@ -2,13 +2,13 @@ const Cart=require('./../Models/cartModel');
 const itemSchema=require('./../Models/itemSchema');
 const Fooditem=require('./../Models/foodItemModel');
 const AppError=require('./../utils/appError')
+const catchAsync=require('./../utils/catchAsync')
 
 //ADD  ITEM TO CART
-exports.addToCart=async(req,res)=>{
+exports.addToCart=catchAsync(async(req,res)=>{
     const adminId=req.params.adminId;
     const userId=req.params.userId;
     const{itemId,quantity}=req.body;
-    try{
         let cart=await Cart.findOne({userId});
         let food=await Fooditem.findById(itemId);
         //console.log(food.price)
@@ -49,18 +49,10 @@ exports.addToCart=async(req,res)=>{
                 cart: newCart
             }
         });
-    } catch (err) {
-        console.log(err);
-        res.status(500).json({
-            status: 'fail',
-            message: 'Something went wrong'
-        });
-    }
-};
+    });
 
 // GET USER CART based on his userId
-exports.getCart=async(req,res)=>{
-    try{
+exports.getCart=catchAsync(async(req,res)=>{
         const userId=req.params.userId;
         const cart=await Cart.findOne({userId});
         res.status(200).json({
@@ -70,27 +62,17 @@ exports.getCart=async(req,res)=>{
                 cart
             }
         });
-    }catch(err){
-        res.status(400).json({
-            status:'fail',
-            message:err.message
-        })   
-    }
-}
+})
 
 // REMOVE ITEM FROM CART
-exports.removeFromCart=async(req,res)=>{
-    try{
+exports.removeFromCart=catchAsync(async(req,res)=>{
         const userId=req.params.userId;
-        //console.log(userId)
         const itemId=req.body.itemId;
-        //console.log(itemId)
         const cart=await Cart.findOne({userId})
         if(!cart) return res.status(400).json({
             message:'No Cart is found for this user'
         })
         let itemIndex=cart.items.findIndex(p=>p.itemId.toString()===itemId);
-        //console.log(itemIndex)
         if(itemIndex>-1){
             cart.items.splice(itemIndex,1);
             //recalculate subTotal
@@ -105,12 +87,6 @@ exports.removeFromCart=async(req,res)=>{
                 status:'fail',
                 message:'Item doesnot exist in Cart!'
             })
-        }    
-    }catch(err){
-        res.status(400).json({
-            status:'fail',
-            message:err.message
-        })
-    }
-}
+        }
+})
 

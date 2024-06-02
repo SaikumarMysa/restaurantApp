@@ -5,6 +5,5 @@ const router=express.Router();
 router
 .route('/:userId')
 .get(userAuthController.protect,orderController.getOrder)
-.post(userAuthController.protect,userAuthController.setUserId,orderController.createOrder)
-    
+.post(userAuthController.protect,userAuthController.setUserId,orderController.createOrder) 
 module.exports=router;

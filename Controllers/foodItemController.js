@@ -1,6 +1,7 @@
 const AppError = require('../utils/appError');
 const Fooditem = require('./../Models/foodItemModel');
 const APIFeatures=require('./../utils/apiFeatures');
+const catchAsync=require('./../utils/catchAsync')
 const multer=require('multer');
 const sharp=require('sharp')
 const multerStorage=multer.memoryStorage();
@@ -19,10 +20,11 @@ exports.uploadFooditemImages=upload.fields([
     {name:'imageCover',maxCount:1},
     {name:'images',maxCount:3}
 ]);
-exports.resizeFooditemImages=async(req,res,next)=>{
+//RESIZING FOR MULTIPLE IMAGES
+exports.resizeFooditemImages=catchAsync(async(req,res,next)=>{
     if(!req.files.imageCover||!req.files.images) return next();
     //1.coverimage
-    req.body.imageCover=`fooditem-${req.params.id}-${Date.now()}-cover.jpeg`;
+    req.body.imageCover=`fooditem-${req.params.foodItemId}-${Date.now()}-cover.jpeg`;
         await sharp(req.files.imageCover[0].buffer)
         .resize(2000,1333)
         .toFormat('jpeg')
@@ -32,7 +34,7 @@ exports.resizeFooditemImages=async(req,res,next)=>{
     req.body.images=[];
     await Promise.all(
     req.files.images.map(async (file,i)=>{
-    const filename=`fooditem-${req.params.id}-${Date.now()}-${i+1}.jpeg`;
+    const filename=`fooditem-${req.params.foodItemId}-${Date.now()}-${i+1}.jpeg`;
     sharp(file.buffer)
     .resize(2000,1333)
     .toFormat('jpeg')
@@ -42,20 +44,17 @@ exports.resizeFooditemImages=async(req,res,next)=>{
     })
 )
 next();
-}
+})
 
 //GET ALL FOODITEMS:
-
-exports.getAllFoodItems=async(req,res)=>{
-    try{
+exports.getAllFoodItems=catchAsync(async(req,res)=>{
         //const foodItems=await Fooditem.find(req.query)
         //Execute query
-        const features= new APIFeatures(Fooditem.find(req.params.id),req.query)
+        // const features= new APIFeatures(Fooditem.find(req.params.id),req.query)
+        const features= new APIFeatures(Fooditem.find(),req.query)
         .filter()
         .paginate()
-
         const foodItems=await features.query;
-       
         res.status(200).json({
             status:'success',
             results:foodItems.length,
@@ -63,84 +62,47 @@ exports.getAllFoodItems=async(req,res)=>{
                 foodItems
             }
         })
-    }catch(err){
-        res.status(404).json({
-            status:'fail',
-            message:err
-        })
-    }
-}
+})
 
 //GET BY ID:
-
-exports.getFoodById=async(req,res)=>{
-    try{
-        const foodItem=await Fooditem.findById(req.params.foodItemId)
+exports.getFoodById=catchAsync(async(req,res)=>{
+    const foodItem=await Fooditem.findById(req.params.foodItemId)
         res.status(200).json({
             status:'success',
             data:{
                 foodItem
             }
         })
-    }catch(err){
-        res.status(404).json({
-            status:'fail',
-            message:err
-        })
-    }
-}
+})
 
 // POST FOODITEMS:
-exports.createFoodItem= async(req,res) =>{
-    try{
-        const newFoodItem = await Fooditem.create(req.body);
+exports.createFoodItem=catchAsync(async(req,res) =>{
+    const newFoodItem = await Fooditem.create(req.body);
         res.status(201).json({
         status:'success',
         data:{
             newFoodItem
         }
     })
-    }catch(err){
-        res.status(404).json({
-            status:'fail',
-            message:err
-        })
-    }   
-}
+})
 
 //update fooditem
-exports.updateFoodItem= async(req,res)=>{
-    console.log(req.body);
-    console.log(req.files);
-    try{
-        const updatedFood = await Fooditem.findByIdAndUpdate(req.params.foodItemId,req.body,{new:true, runValidators:true});
-        res.status(200).json({
-        status:'success',
-        data:{
-            updatedFood
-        }
+exports.updateFoodItem=catchAsync(async(req,res)=>{
+const updatedFood = await Fooditem.findByIdAndUpdate(req.params.foodItemId,req.body,{new:true, runValidators:true});
+    res.status(200).json({
+    status:'success',
+    data:{
+        updatedFood
+    }
     })
-    }catch(err){
-        res.status(404).json({
-            status:'fail',
-            message:err
-        })
-    }    
-}
+})
 
 //delete Fooditem
-exports.deleteFoodItem=async(req,res)=>{
-    try{
+exports.deleteFoodItem=catchAsync(async(req,res)=>{
         await Fooditem.findByIdAndUpdate(req.params.foodItemId,{active:false});
         res.status(200).json({
         status:'success',
         data:null
     })
-    }catch(err){
-        res.status(404).json({
-            status:'fail',
-            message:err
-        })
-    }
-}
+})
 

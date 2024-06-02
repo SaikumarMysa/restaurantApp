@@ -1,8 +1,8 @@
 const express=require('express');
 const Category=require('./../Models/categoryModel')
+const catchAsync=require('./../utils/catchAsync')
 //GET ALL CATEGORIES:
-exports.getAllCategories=async(req,res) => {
-    try{
+exports.getAllCategories=catchAsync(async(req,res)=>{
         const categories=await Category.find(req.query);
         //console.log(req.query);
     res.status(200).json({
@@ -11,17 +11,10 @@ exports.getAllCategories=async(req,res) => {
             categories
         }
     })
-    }catch(err){
-        res.status(404).json({
-            status:'fail',
-            message:err
-        })
-    }   
-}
+})
 
 //GET CATEGORY BY ID:
-exports.getCategoryById=async(req,res) => {
-    try{
+exports.getCategoryById=catchAsync(async(req,res) => {
         const category=await Category.findById(req.params.id);
         res.status(200).json({
         status:'success',
@@ -29,18 +22,10 @@ exports.getCategoryById=async(req,res) => {
             category
         }
     })
-    }catch(err){
-        res.status(404).json({
-            status:'fail',
-            message:err
-        })
-    }   
-}
+})
 
 //CREATE CATEGORY
-
-exports.createCategory = async(req,res)=>{
-    try{
+exports.createCategory=catchAsync(async(req,res)=>{
         const newCategory = await Category.create(req.body);
         res.status(201).json({
         status:'success',
@@ -48,18 +33,10 @@ exports.createCategory = async(req,res)=>{
             newCategory
         }
     })
-    }catch(err){
-        res.status(404).json({
-            status:'fail',
-            message:err
-        })
-    } 
-}
+})
 
 // UPDATE CATEGORY
-
-exports.updateCategory=async(req,res) =>{
-    try{
+exports.updateCategory=catchAsync(async(req,res)=>{
         const updatedCategory= await Category.findByIdAndUpdate(req.params.id, req.params.body);
         res.status(200).json({
         status:'success',
@@ -67,28 +44,13 @@ exports.updateCategory=async(req,res) =>{
             updatedCategory
         }
     })
-    }catch(err){
-        res.status(404).json({
-            status:'success',
-            message:err
-        })
-    } 
-}
+})
 
 // DELETE CATEGORY
-
-exports.deleteCategory =async(req,res)=>{
-    try{
+exports.deleteCategory=catchAsync(async(req,res)=>{
         await Category.findByIdAndUpdate(req.params.id,{active:false})
         res.status(204).json({
         status:'success',
         data:null
     })
-    }catch(err){
-        res.status.json({
-            status:'fail',
-            message:err
-        })
-    }
-    
-}
+})

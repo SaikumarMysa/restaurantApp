@@ -12,15 +12,13 @@ foodItemController.createFoodItem)
 router
 .route('/:foodItemId')
 .get(foodItemController.getFoodById)
-// .patch(
-//     userAuthController.protect,
-//     userAuthController.restrictTo('superadmin','admin'),
-//     userAuthController.uploadFooditemImages,
-//     userAuthController.resizeFooditemImages,
-//     foodItemController.updateFoodItem)
+.patch(userAuthController.protect,userAuthController.restrictTo('superadmin','admin'),
+foodItemController.uploadFooditemImages,
+foodItemController.resizeFooditemImages,
+foodItemController.updateFoodItem)
 .delete(userAuthController.protect,
 userAuthController.restrictTo('superadmin'),
 foodItemController.deleteFoodItem)
-
+//Nested middleware for reviews on a fooditem
 router.use('/:fooditemId/reviews',reviewRouter);
 module.exports=router;

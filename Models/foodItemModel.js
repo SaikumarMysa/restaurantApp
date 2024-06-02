@@ -18,7 +18,7 @@ const foodSchema=new mongoose.Schema({
     images:[String],
     imageCover:{
         type:String,
-        //required:[true,'A fooditem must have a cover image']
+        required:[true,'A fooditem must have a cover image']
     },
     description:{
         type:String,
@@ -69,7 +69,6 @@ foodSchema.pre(/^find/,function(next){
 })
 foodSchema.pre(/^find/,function(next){
     this.find({active:{$ne:false}})
-    //this.find();
     next();
 })
 const Fooditem=mongoose.model('Fooditem',foodSchema);
